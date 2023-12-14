@@ -1,0 +1,824 @@
+/*
+------------------------------------------------------ 
+MIXINS / KEYFRAMES / INCLUDES / VARIABLES
+------------------------------------------------------ 
+*/
+$blue: #3491b2;
+$white: #fff;
+$black: #000;
+$fonts: 'Roboto Condensed', sans-serif;
+$dark-gray: darkgray;
+$lightgray: lightgray;
+
+.border-red {
+    border: red 2px solid;
+}
+
+@mixin flex ($direction, $justify, $align) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+%no-margin {
+    margin: 0;
+    padding: 0;
+}
+
+/*
+------------------------------------------------------ 
+MIXINS / KEYFRAMES / INCLUDES / VARIABLES
+------------------------------------------------------ 
+*/
+
+
+
+/*
+------------------------------------------------------ 
+GENERAL
+------------------------------------------------------ 
+*/
+html,
+body,
+main {
+    @extend %no-margin;
+    max-width: 1600px;
+    margin: auto;
+    font-family: $fonts;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    position: relative;
+    height: auto;
+}
+
+p {
+    font-weight: 200;
+    opacity: .7;
+}
+
+/*
+------------------------------------------------------
+AFTER SECTIONS
+------------------------------------------------------
+*/
+hr {
+    width: 75px;
+    opacity: .5;
+    display: inline-block;
+}
+
+.blue-dot {
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: $blue;
+    margin: 1px;
+    position: relative;
+    top: -3px;
+}
+
+.dot-in-line {
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+
+/*
+------------------------------------------------------
+AFTER SECTIONS
+------------------------------------------------------
+*/
+/*
+------------------------------------------------------ 
+GENERAL
+------------------------------------------------------ 
+*/
+
+
+.main-content::-webkit-scrollbar {
+    display: block;
+    position: fixed;
+}
+
+
+/*
+------------------------------------------------------ 
+NAVBAR
+------------------------------------------------------ 
+*/
+.navbar {
+    @include flex(row, space-between, center);
+    position: fixed;
+    max-width: 1600px;
+    top: 0;
+    overflow: hidden;
+    font-size: 1.1rem;
+    height: 100px;
+    margin: auto;
+    background: rgba(255, 255, 255, .85);
+    backdrop-filter: blur(10px);
+    z-index: 3;
+
+    @media screen and (max-width: 768px) {
+        @include flex(column, space-between, center);
+        height: 125px;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .img-logo {
+        margin: 0 5%;
+        padding: 0;
+    }
+
+    .navigation {
+        @include flex(row, center, center);
+        display: block;
+        width: 40%;
+        margin-right: 5%;
+
+        @media screen and (max-width: 768px) {
+            width: 100vw;
+            max-height: 65px;
+            margin-right: 0;
+        }
+
+        .nav-list {
+            @include flex(row, center, center);
+            @extend .navigation;
+            @extend %no-margin;
+            height: 100%;
+            list-style: none;
+            width: 100%;
+
+            @media screen and (max-width: 768px) {
+                width: 100vw;
+                max-height: 65px;
+            }
+
+            .nav-item {
+                @include flex(row, center, center);
+                @extend %no-margin;
+                height: 100%;
+                border-top: 5px transparent solid;
+
+                .nav-link {
+                    @include flex(row, center, center);
+                    @extend %no-margin;
+                    border-top: 5px transparent solid;
+                    padding: 0 2.5%;
+                    height: auto;
+                    text-decoration: none;
+                    color: $dark-gray;
+                    height: 100%;
+                }
+            }
+
+            .active,
+            .nav-item:hover a {
+                border-top: 5px $blue solid;
+                color: $blue;
+            }
+        }
+    }
+}
+
+/*
+------------------------------------------------------
+NAVBAR
+------------------------------------------------------
+*/
+
+
+
+/*
+------------------------------------------------------
+BANNER
+------------------------------------------------------
+*/
+.slider {
+    @include flex (column, center, center);
+    height: auto;
+    position: relative;
+
+    .slider-title {
+        @include flex (row, flex-start, flex-start);
+        width: 75%;
+        position: absolute;
+        height: auto;
+        left: 0;
+        margin-left: 5%;
+        font-size: 1.7rem;
+        color: $white;
+        z-index: 1;
+
+        h1 {
+            width: 70%;
+            margin: 5px 10px 30px 0;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            font-size: 3rem;
+            font-weight: 600;
+
+            @media screen and (max-width: 1024px) {
+                font-size: 2.4rem;
+                margin-bottom: 1rem;
+            }
+
+            @media screen and (max-width: 768px) {
+                width: 70%;
+                font-size: 1.8rem;
+                margin-bottom: 0;
+            }
+
+            @media screen and (max-width: 576px) {
+                font-size: 1.3rem;
+            }
+
+            .text-blue {
+                @extend h1;
+                color: $blue;
+            }
+        }
+
+        p {
+            opacity: 1;
+            font-size: 1.2rem;
+            margin-bottom: 1.3rem;
+            font-weight: 500;
+
+            @media screen and (max-width: 1024px) {
+                width: 60%;
+                font-size: 1.15rem;
+            }
+
+            @media screen and (max-width: 768px) {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            @media screen and (max-width: 576px) {
+                display: none;
+            }
+        }
+
+        .slider-button {
+            border-radius: 5px;
+            font-size: 1.2rem;
+            background-color: $blue;
+            color: $white;
+            text-decoration: none;
+            padding: 7px;
+
+            &:hover {
+                background: darken($color: $blue, $amount: 10%);
+                box-shadow: $black 2px 2px 2px;
+            }
+
+            @media screen and (max-width: 1024px) {
+                padding: 5px;
+                font-size: 1rem;
+            }
+
+            @media screen and (max-width: 768px) {
+                font-size: .75rem;
+            }
+        }
+    }
+
+    .slide-button {
+        @include flex (row, center, center);
+        height: 60px;
+        width: 30px;
+        background: rgba(50, 50, 50, .9);
+        color: white;
+        font-size: 2rem;
+        text-decoration: none;
+        z-index: 2;
+        position: absolute;
+        top: 50%;
+
+        &:hover {
+            background: rgba(0, 0, 0, .9);
+        }
+
+        @media screen and (max-width: 1024px) {
+            font-size: 1.5rem;
+            width: 25px;
+            height: 50px;
+        }
+
+        @media screen and (max-width: 768px) {
+            font-size: 1rem;
+            width: 20px;
+            height: 40px;
+        }
+    }
+
+    .slide-button-start {
+        left: 0;
+        border-radius: 0px 50% 50% 0px;
+    }
+
+    .slide-button-end {
+        right: 0;
+        border-radius: 50% 0 0 50%;
+    }
+
+    .slider-bg {
+        @include flex (row, flex-start, flex-start);
+        max-width: 100%;
+        position: relative;
+        overflow: hidden;
+        -moz-overflow: hidden;
+        scroll-behavior: smooth;
+
+        #slider-img2,
+        #slider-img1 {
+            padding-top: 100px;
+            width: 100%;
+            height: 100%;
+
+            @media screen and (max-width: 768px) {
+                padding-top: 125px;
+            }
+        }
+    }
+}
+
+/*
+------------------------------------------------------
+BANNER
+------------------------------------------------------
+*/
+
+
+
+/*
+------------------------------------------------------
+MAIN
+------------------------------------------------------
+*/
+.main-content {
+    overflow: auto;
+    top: 100px;
+    height: 100%;
+
+    @media screen and (max-width: 768px) {
+        top: 125px;
+    }
+
+    section {
+        padding-top: 100px;
+        margin-top: -25px;
+
+        @media screen and (max-width: 768px) {
+            padding-top: 125px;
+        }
+
+        h2 {
+            text-align: center;
+            text-transform: uppercase;
+            margin: 10px auto 10px;
+            font-weight: 500;
+            font-size: 2.2rem;
+        }
+
+        p:first-of-type {
+            width: 50%;
+            margin: 15px auto;
+            text-align: center;
+
+            @media screen and (max-width: 768px) {
+                width: 90%;
+            }
+        }
+    }
+}
+
+/*
+------------------------------------------------------
+MAIN
+------------------------------------------------------
+*/
+
+
+
+/*
+------------------------------------------------------
+SERVICES  --> reduce indentation number <4
+------------------------------------------------------
+*/
+.services {
+    width: 100%;
+    margin-top: 100px;
+}
+
+.flex {
+    width: 100%;
+    @include flex(row, flex-end, center);
+
+    @media screen and (max-width: 1024px) {
+        @include flex(column, center, center);
+    }
+
+    .flex-child {
+        @include flex (column, center, center);
+        @extend %no-margin;
+        width: 100%;
+        list-style: none;
+
+        li {
+            @include flex (row, center, center);
+            flex-wrap: nowrap;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            width: 90%;
+
+            @media screen and (max-width: 1024px) {
+                margin: auto;
+            }
+
+            .service-text {
+                @include flex (column, flex-start, flex-start);
+                width: 90%;
+                margin-top: 10px;
+
+                h3,
+                p {
+                    margin: 0;
+                    width: auto;
+                    text-align: justify;
+                }
+
+                @media screen and (max-width: 768px) {
+                    width: 70%;
+                }
+
+                @media screen and (max-width: 576px) {
+                    width: 60%;
+                }
+            }
+
+            .circle-icon {
+                @include flex (row, center, center);
+                width: 50px;
+                height: 50px;
+                float: left;
+                background: transparent;
+                border: 1px $lightgray solid;
+                border-radius: 50%;
+                margin: 10px;
+                animation: linear infinite reverse rotate 3s;
+
+                span {
+                    animation: linear infinite rotate 3s;
+                    color: $blue;
+                    font-size: 1.25rem;
+                }
+
+                &::after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    top: 35px;
+                    left: 35px;
+                    width: 15%;
+                    height: 15%;
+                    border-radius: 50%;
+                    border: $white 4px solid;
+                    background: $blue;
+                }
+            }
+        }
+    }
+
+    .imac img {
+        width: 100%;
+    }
+}
+
+
+/*
+------------------------------------------------------
+SERVICES
+------------------------------------------------------
+*/
+
+
+
+/*
+------------------------------------------------------
+PROJECTS
+------------------------------------------------------
+*/
+.projects {
+    background: #f5f5f5;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+    .navigation-band {
+        width: fit-content;
+        margin: auto;
+
+        .nav-band {
+            @include flex (row, center, flex-start);
+            list-style: none;
+            margin: 0;
+            height: auto;
+            padding: 0;
+            width: fit-content;
+            border-radius: 5px;
+            background: $lightgray;
+            margin-bottom: 30px;
+
+            .nav-band-item {
+                @include flex (row, center, flex-start);
+                position: relative;
+                text-align: center;
+                padding: 0px;
+                width: 100px;
+
+                @media screen and (max-width: 768px) {
+                    width: 75px;
+                }
+
+                a {
+                    @extend %no-margin;
+                    text-decoration: none;
+                    color: black;
+                    width: 100%;
+                    height: 100%;
+                    padding: 10px;
+                }
+
+                &:hover,
+                &:hover {
+                    background: $blue;
+                }
+
+                &:hover a {
+                    color: $white;
+                }
+
+                &:first-child {
+                    border-radius: 5px 0 0 5px;
+                }
+
+                &:last-child {
+                    border-radius: 0 5px 5px 0;
+                }
+
+                &:hover .material-symbols-rounded {
+                    opacity: 1;
+                }
+
+                .material-symbols-rounded {
+                    position: absolute;
+                    display: block;
+                    width: 50px;
+                    height: auto;
+                    rotate: 180deg;
+                    bottom: -25px;
+                    text-align: center;
+                    color: $blue;
+                    opacity: 0;
+                    font-variation-settings:
+                        'FILL' 1
+                }
+            }
+        }
+    }
+
+    .samples {
+        @include flex (row, space-between, flex-start);
+        flex-wrap: wrap;
+
+        @media screen and (max-width: 1024px) {
+            @include flex(row, space-around, flex-start);
+        }
+
+        @media screen and (max-width: 768px) {
+            @include flex(row, space-around, flex-start);
+        }
+
+        .sample-item {
+            @include flex(row, space-evenly, flex-start);
+            width: 23%;
+            height: fit-content;
+            margin: 5px 0;
+            position: relative;
+            overflow: hidden;
+            transition: left .5s ease;
+
+            img {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            &:hover .sample-item-text {
+                opacity: 1;
+                left: 0;
+                width: 100%;
+                transition: left .5s ease;
+            }
+
+            @media screen and (max-width: 1024px) {
+                width: 32%;
+            }
+
+            @media screen and (max-width: 768px) {
+                @include flex(row, space-around, flex-start);
+                width: 46%;
+            }
+
+            @media screen and (max-width: 576px) {
+                width: 95%;
+                margin: 5px auto;
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+
+            .sample-item-text {
+                @include flex (column, flex-start, center);
+                position: absolute;
+                left: 100%;
+                bottom: 0;
+                height: 40%;
+                margin: 0;
+                padding: 0;
+                background: rgba(50, 50, 50, .95);
+                color: $white;
+                font-size: 1.5rem;
+                transition: left .5s ease;
+
+                @media screen and (max-width: 768px) {
+                    left: 0;
+                    height: 30%;
+                    font-size: 1.3rem;
+                }
+
+                /*
+                @media screen and (max-width: 576px) {
+                    height: 25%;
+                    font-size: 1.3rem;
+                }
+                */
+                * {
+                    margin-top: 0px;
+                    color: white;
+                    text-decoration: none;
+                }
+
+                h4 {
+                    margin-top: -15px;
+                }
+
+                .eye-icon {
+                    color: $white;
+                    font-size: 2rem;
+                    background: $blue;
+                    border-radius: 50%;
+                    padding: 5px;
+                    position: relative;
+                    top: -20%;
+                    left: 40%;
+                    box-shadow: 0 -2px 15px black;
+                }
+            }
+
+            .sample-item:hover>.sample-item-text {
+                position: absolute;
+                top: 50%;
+                bottom: 0;
+                transition: top ease .5s;
+                opacity: 1;
+                z-index: 2;
+            }
+        }
+    }
+}
+
+/*
+------------------------------------------------------
+PROJECTS
+------------------------------------------------------
+*/
+
+
+
+/*
+------------------------------------------------------
+CONTACT
+------------------------------------------------------
+*/
+.contact {
+    position: relative;
+    padding-bottom: 200px;
+
+    .contact-content {
+        @include flex(row, flex-end, flex-start);
+        position: relative;
+        background: rgba(0, 50, 205, 1);
+        height: fit-content;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1;
+
+        .formulaire {
+            @include flex(column, space-between, flex-start);
+            position: absolute;
+            top: 0;
+            right: 20px;
+            opacity: 1;
+            margin: 50px;
+            background: rgba(255, 255, 255, .7);
+            height: auto;
+            padding: 20px;
+            z-index: 3;
+            width: 250px;
+            height: 400px;
+
+            div {
+                width: 100%
+            }
+
+            fieldset {
+                @extend %no-margin;
+                border: none;
+                font-weight: 500;
+                font-size: 1.5rem;
+                text-align: left;
+                font-style: normal;
+            }
+
+            .address {
+                @extend %no-margin;
+                font-style: italic;
+                font-size: 1rem;
+                text-align: start;
+                font-weight: 200;
+
+                span {
+                    @extend fieldset;
+                    font-size: 1rem;
+                }
+            }
+
+            input,
+            textarea {
+                width: 100%;
+                margin: 5px 0;
+            }
+
+            textarea {
+                height: 5rem;
+            }
+
+            button {
+                background-color: $blue;
+                color: $white;
+                padding: 5px 15px;
+            }
+        }
+
+        .map {
+            opacity: .8;
+            z-index: 2;
+            width: 100%;
+            position: relative;
+
+        }
+    }
+}
+
+/*
+------------------------------------------------------
+CONTACT
+------------------------------------------------------
+
+*/
